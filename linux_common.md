@@ -38,7 +38,7 @@
 ---
 ## Изменение прав доступа (opt)
 
-`sudo chmod +x /opt`
+`sudo chmod +x /opt`\
 `sudo chown -R sadekov:sadekov /opt`
 
 ---
