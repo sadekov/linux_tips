@@ -19,3 +19,6 @@ GRUB_SAVEDEFAULT=true
 GRUB_DEFAULT="saved"
 
 # $ update-grub2
+
+-- Сокрытие директории
+echo snap >> ~/.hidden
