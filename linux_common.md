@@ -1,27 +1,38 @@
+# linux_common_notes
 ## Добавление папки в path
-- open terminal in home directory
-$ gedit .bashrc
+- Открывааем терминал в домашней директории и вводим
+`$ gedit .bashrc`
 
-- append those lines
-export PATH=$PATH:/opt/Qt/5.15.2/gcc_64/bin
+- Добавляем в конце файла
+`export PATH=$PATH:/opt/Qt/5.15.2/gcc_64/bin`
 
--arm-none-eabi
-$ tar xjf ~/Downloads/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
-export PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
+- Перезапускаем bashrc
+`$ source ~/.bashrc`
 
-- reload bashrc
-$ source ~/.bashrc
--------------------------------------------
+---
+
+## Установка arm-none-eabi
+-Распаковка архива
+`$ tar xjf ~/Downloads/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2`
+
+-Добавление в path
+`export PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin`
+
+---
 
 ## Запоминание последней запущенной ОС grub
-$ gedit /etc/default/grub
 
-GRUB_SAVEDEFAULT=true
-GRUB_DEFAULT="saved"
+`$ gedit /etc/default/grub`
 
-$ update-grub2
--------------------------------------------
+`GRUB_SAVEDEFAULT=true
+ GRUB_DEFAULT="saved"`
 
-## Сокрытие директории
-echo snap >> ~/.hidden
--------------------------------------------
+`$ update-grub2`
+
+---
+
+## Сокрытие директории (snap)
+
+`echo snap >> ~/.hidden`
+
+---
