@@ -124,3 +124,22 @@ Using the instructions below, we'll first pair your Bluetooth devices with Ubunt
         Alternatively, reboot your machine into Linux.
     Reboot into Windows - it works!
 ---
+
+## Чтобы не сбивалось время при dualboot
+
+В Windows:
+Дальше наберите команду для 32 битных систем:
+
+> Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1
+
+А для 64-битных, нужно использовать тип значения  REG_QWORD:
+
+> Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_QWORD /d 1
+> sc config w32time start= disabled
+> 
+
+В linux:
+ sudo timedatectl set-local-rtc 1 --adjust-system-clock
+ sudo timedatectl
+  sudo sed -i 's/UTC=yes/UTC=no/' /etc/default/rcS
+  /etc/default/rcS и заменить UTC=yes на UTC=no. 
