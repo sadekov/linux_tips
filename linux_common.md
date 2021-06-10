@@ -143,3 +143,9 @@ Using the instructions below, we'll first pair your Bluetooth devices with Ubunt
  sudo timedatectl
   sudo sed -i 's/UTC=yes/UTC=no/' /etc/default/rcS
   /etc/default/rcS и заменить UTC=yes на UTC=no. 
+  
+## Если не работают usb в virtualBox под ubuntu
+ - Установить extension pack
+ - В терминале ввести:
+`sudo gpasswd -a yourusername vboxusers`
+ - Выйти из системы и залогиниться вновь
