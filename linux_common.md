@@ -144,18 +144,18 @@ Using the instructions below, we'll first pair your Bluetooth devices with Ubunt
   sudo sed -i 's/UTC=yes/UTC=no/' /etc/default/rcS
   /etc/default/rcS и заменить UTC=yes на UTC=no. 
   
+---
+  
 ## Если не работают usb в virtualBox под ubuntu
  - Установить extension pack
  - В терминале ввести:
 `sudo gpasswd -a yourusername vboxusers`
  - Выйти из системы и залогиниться вновь
 
-
+---
+  
 
 ## Делаем чтобы USB COM порт был доступен простому пользователю Linux
-Опубликовано lamazavr - вс, 01/25/2015 - 15:20
-Body
-
 По умолчанию udev в Linux системах настроен так, что не дает обычному пользователю системы пользоваться COM портами. Под это правило попадает и USB-COM переходник на ft232.
 Это конечно во многих случаях оправдано, но сильно надоедает. Ведь так нужно запускать терминал от root.
 Избежать этого очень просто. Нужно поменять правила системы udev.
@@ -194,3 +194,5 @@ $ ls -l /dev/ | grep USB
 lrwxrwxrwx. 1 root root             7 янв 25 15:09 ft232_0 -> ttyUSB0
 crw-rw-rw-. 1 root users     188,   0 янв 25 15:09 ttyUSB0
 
+---
+  
