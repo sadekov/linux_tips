@@ -149,3 +149,48 @@ Using the instructions below, we'll first pair your Bluetooth devices with Ubunt
  - В терминале ввести:
 `sudo gpasswd -a yourusername vboxusers`
  - Выйти из системы и залогиниться вновь
+
+
+
+## Делаем чтобы USB COM порт был доступен простому пользователю Linux
+Опубликовано lamazavr - вс, 01/25/2015 - 15:20
+Body
+
+По умолчанию udev в Linux системах настроен так, что не дает обычному пользователю системы пользоваться COM портами. Под это правило попадает и USB-COM переходник на ft232.
+Это конечно во многих случаях оправдано, но сильно надоедает. Ведь так нужно запускать терминал от root.
+Избежать этого очень просто. Нужно поменять правила системы udev.
+
+Изначально у меня права такие:
+$ ls -l /dev/ | grep USB
+crw-------. 1 root root      188,   0 янв 25 15:04 ttyUSB0
+
+Сначала нужно узнать VendorID и ProductID нашего переходника. Это можно сделать такой командой:
+$ lsusb | grep UART
+Bus 003 Device 011: ID 0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC
+
+Пара чисел здесь и есть нужные нам значения.
+Теперь создаем файл в /etc/udev/rules.d/
+sudo vim /etc/udev/rules.d/10-ft232.rules
+
+И добавляем туда такое содержимое (изменяем если нужно idVendor и idProduct):
+
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", \
+    MODE:="0666", GROUP:="users",\
+    SYMLINK+="ft232_%n"
+
+Этой записью мы устанавливаем на USB устройство 0403:6001 права на запись и чтение обычным пользователям. А также говорим udev создавать символьную ссылку на него с именем ft232_номер.
+
+Перезагружаем udev.
+sudo udevadm control --reload-rules
+
+Теперь проверяем права на наше устройство.
+$ ls -l /dev/ | grep USB
+lrwxrwxrwx. 1 root root             7 янв 25 15:09 ft232_0 -> ttyUSB0
+crw-rw-rw-. 1 root users     188,   0 янв 25 15:09 ttyUSB0
+
+Все прописалось. Можно использовать.
+Еще раз проверяем права:
+$ ls -l /dev/ | grep USB
+lrwxrwxrwx. 1 root root             7 янв 25 15:09 ft232_0 -> ttyUSB0
+crw-rw-rw-. 1 root users     188,   0 янв 25 15:09 ttyUSB0
+
